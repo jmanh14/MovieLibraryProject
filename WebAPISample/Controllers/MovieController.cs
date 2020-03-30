@@ -20,10 +20,10 @@ namespace WebAPISample.Controllers
         }
         // GET api/movie
         [HttpGet]
-        public IActionResult Get()
+        public IEnumerable<Movie> Get()
         {
             // Retrieve all movies from db logic
-            return Ok(new string[] { "movie1 string", "movie2 string" });
+            return _context.Movies.ToList();
         }
 
         // GET api/movie/5
@@ -41,8 +41,9 @@ namespace WebAPISample.Controllers
         public IActionResult Post([FromBody]Movie value)
         {
             // Create movie in db logic
-
-            return Ok();
+            _context.Movies.Add(value);
+            _context.SaveChanges();
+            return Ok(value);
         }
 
         // PUT api/movie
