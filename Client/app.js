@@ -1,10 +1,10 @@
-(function($){
-    function processForm( e ){
-        var dict = {
-            Title : this["title"].value,
-            Genre: this["genre"].value,
-        	Director: this["director"].value
-        };
+(function($) {
+	function processForm(e) {
+		var dict = {
+			Title: this['title'].value,
+			Director: this['director'].value,
+			Genre: this['genre'].value
+		};
 
         $.ajax({
             url: 'https://localhost:44325/api/movie',
@@ -22,10 +22,7 @@
             }
         });
 
-        e.preventDefault();
-    }
-
-    $('#my-form').submit( processForm );
+	$('#my-form').submit(processForm);
 })(jQuery);
 
 $(function(){
