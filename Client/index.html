@@ -21,23 +21,12 @@
   <input class="form-control" id="myInput" type="text" placeholder="Search by Title, Genre or Director..">
   <br>
   <center> 
-    <table class="table table-striped" id="movieTable">
+    <table class="table table-striped " id="movieTable">
         <tr>
         </tr>
     </table>
     <hr>
 </div>
-<script>
-    $(document).ready(function(){
-      $("#myInput").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#movieTable tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-    });
-    </script>
-
 <div>   
     <form id="my-form">
         <h2>Add Movie To Library</h2>
@@ -50,30 +39,19 @@
         </div>
         <div class="col-xs-4">
             <input class="form-control" type="text" name="director" placeholder="Director"/>
+        </div> 
+        <div class="col-xs-4">
+            <input class="form-control" type="text" name="imageURL" placeholder="ImageURL"/>
             <br>
         </div> 
         <hr>
             <button type="submit">Add</button>
-            <hr>
+        <hr>
         </div>
         </div>
     </form>
-<<<<<<< HEAD
-    <br><br>
-    <form id="search-form">
-        <input type="text" name="title" placeholder="Title" />
-        <input type="text" name="genre" placeholder="Genre" />
-        <input type="text" name="director" placeholder="Director" />
-
-        <button type="submit">Search</button>
-    </form>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="./app.js"></script>
-=======
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="./app.js"></script>
 </center>
->>>>>>> 782bc1f739786ea780d18543b36d400caba2a100
 </body>
 </html>
