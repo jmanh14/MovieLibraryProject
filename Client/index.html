@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Movie Library</title>
     <title>jQuery AJAX POST Form</title>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
-<div class="container-fluid text-center">
-    <div class="jumbotron">
-    <h1>Movie Library</h1>
+
+<body style = "background-color: #D4E4f7;">
+    <div class="container-fluid text-center">
+    <div class="jumbotron" style="background-color: #236AB9;" style="text-shadow: cornflowerblue;">
+    <h1 style="font-family:Georgia;"><strong>Movie Library</strong></h1>
     <p>  </p> 
-</div>
+    </div>
    
-<div class="container-fluid" id="response">
-  <input class="form-control" id="myInput" type="text" placeholder="Search by Title, Genre or Director..">
-  <br>
+    <div class="container" id="response">
+    <input class="form-control" id="myInput" type="text" placeholder="Search by Title, Genre or Director..">
+    <br>
   <center> 
-    <table class="table table-striped" id="movieTable">
+    <div class="container">
+    <table class="table table-hover" style="text-decoration-color: #341c09" id="movieTable">
         <tr>
         </tr>
     </table>
-    <hr>
-</div>
-<script>
+    </div>
+</center>
+    <script>
     $(document).ready(function(){
       $("#myInput").on("keyup", function() {
         var value = $(this).val().toLowerCase();
@@ -37,10 +39,10 @@
       });
     });
     </script>
-
-<div>   
+    <hr>
+    <div>   
     <form id="my-form">
-        <h2>Add Movie To Library</h2>
+        <h2 style="font-family:Georgia;" style="text-decoration-color: #341c09;">Add Movie To Library</h2>
         <div class="form-group row">
         <div class="col-xs-4">
             <input class="form-control" type="text" name="title" placeholder="Title" />
@@ -49,17 +51,16 @@
             <input class="form-control" type="text" name="genre" placeholder="Genre" />
         </div>
         <div class="col-xs-4">
-            <input class="form-control" type="text" name="director" placeholder="Director"/>
-            <br>
+            <input class="form-control" type="text" name="director" placeholder="Director" />
         </div> 
         <hr>
-            <button type="submit">Add</button>
+        <button style="font-family:Georgia;" type="submit" class="btn btn-default">Add</button>
             <hr>
         </div>
         </div>
     </form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="./app.js"></script>
-</center>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./app.js"></script>
+</div>
 </body>
 </html>
