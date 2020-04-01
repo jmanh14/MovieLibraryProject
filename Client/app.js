@@ -1,3 +1,9 @@
+images = [
+	'https://upload.wikimedia.org/wikipedia/en/8/8a/Dark_Knight.jpg',
+	'https://upload.wikimedia.org/wikipedia/en/2/2e/Inception_%282010%29_theatrical_poster.jpg',
+	'https://m.media-amazon.com/images/M/MV5BMTY1MTE4NzAwM15BMl5BanBnXkFtZTcwNzg3Mjg2MQ@@._V1_UY1200_CR88,0,630,1200_AL_.jpg',
+	'https://m.media-amazon.com/images/M/MV5BZjRlNDUxZjAtOGQ4OC00OTNlLTgxNmQtYTBmMDgwZmNmNjkxXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg'
+];
 $(function() {
 	LoadMovies();
 });
@@ -6,7 +12,8 @@ $(function() {
 		var dict = {
 			Title: this['title'].value,
 			Director: this['director'].value,
-			Genre: this['genre'].value
+			Genre: this['genre'].value,
+			ImageURL: this['imageURL'].value
 		};
 
 		$.ajax({
@@ -17,14 +24,15 @@ $(function() {
 			data: JSON.stringify(dict),
 			success: function(data, textStatus, jQxhr) {
 				$('#movieTable').append(
-					`<tr><td>${data['title']}</td><td>${data['genre']}</td><td>${data[
+					`<tr><td ><a href=${dict.ImageURL}>${data['title']}</a></td><td>${data['genre']}</td><td>${data[
 						'director'
 					]}</td><td><button onClick="Edit('${data['movieId']}', '${data['title']}', '${data[
 						'genre'
-					]}', '${data['director']}')">Edit</button></td><button onClick="deleteMovie('${data[
+					]}', '${data['director']}')">Edit</button></td><td><button onClick="deleteMovie('${data[
 						'movieId'
-					]}')">Delete</button></></tr>`
+					]}')">Delete</button></td></tr>`
 				);
+				images.push(dict.ImageURL);
 			},
 			error: function(jqXhr, textStatus, errorThrown) {
 				console.log(errorThrown);
@@ -42,7 +50,7 @@ function LoadMovies() {
 		$('#movieTable').append(`<tr><th>Title</th><th>Genre</th><th>Director</th><th></th><th></th></tr>`);
 		for (let i = 0; i < data.length; i++) {
 			$('#movieTable').append(
-				`<tr><td>${data[i]['title']}</td><td>${data[i]['genre']}</td><td>${data[i][
+				`<tr><td><a href=${images[i]}>${data[i]['title']}</a></td><td>${data[i]['genre']}</td><td>${data[i][
 					'director'
 				]}</td><td><button  onClick="Edit('${data[i]['movieId']}', '${data[i]['title']}', '${data[i][
 					'genre'
@@ -100,3 +108,22 @@ function deleteMovie(id) {
 		}
 	});
 }
+
+$(document).ready(function() {
+	$('#myInput').on('keyup', function() {
+		var value = $(this).val().toLowerCase();
+		$('#movieTable tr').filter(function() {
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+		});
+	});
+});
+$('a').each(function() {
+	$(this).click(function(e) {
+		var imgUrl = $(this).attr('href');
+		alert(imgUrl);
+		// display here the image where you want
+		images[e];
+		e.preventDefault();
+		return false;
+	});
+});
