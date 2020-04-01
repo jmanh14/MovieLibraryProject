@@ -21,7 +21,7 @@ $(function() {
 						'director'
 					]}</td><td><button onClick="Edit('${data['movieId']}', '${data['title']}', '${data[
 						'genre'
-					]}', '${data['director']}')">Edit</button><button onClick="DeleteMovie('${data[
+					]}', '${data['director']}')">Edit</button><button onClick="deleteMovie('${data[
 						'movieId'
 					]}')">Delete</button></td></tr>`
 				);
