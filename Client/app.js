@@ -21,6 +21,7 @@
                 console.log( errorThrown );
             }
         });
+    }
 
 	$('#my-form').submit(processForm);
 })(jQuery);
@@ -32,7 +33,8 @@ $(function(){
 function LoadMovies(){
     let data = {}
     $.get('https://localhost:44325/api/movie', function(data){
-        for(let i = 0; i < data.length; i++){    
+        $("#movieTable").append(`<tr><th>Title</th><th>Genre</th><th>Director</th><th>Edit</th></tr>`); 
+        for(let i = 0; i < data.length; i++){     
             $("#movieTable").append(`<tr><td>${data[i]["title"]}</td><td>${data[i]["genre"]}</td><td>${data[i]["director"]}</td><td><button  onClick="Edit('${data[i]["movieId"]}', '${data[i]["title"]}', '${data[i]["genre"]}', '${data[i]["director"]}')">Edit</button></td></tr>`);  
         }
     })
@@ -57,7 +59,7 @@ function LoadMovies(){
                 contentType: 'application/json',
                 data: JSON.stringify(dict),
                 success: function(data, textStatus, jQxhr){  
-                    document.body.innerHTML = "";
+                    document.getElementById("movieTable").innerHTML = "";
                     LoadMovies();
                     
                 },  
