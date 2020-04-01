@@ -13,9 +13,7 @@
             contentType: 'application/json',
             data: JSON.stringify(dict),
             success: function( data, textStatus, jQxhr ){
-                    $("#title").append(`<tr><td>${data["title"]}</td></tr>`);  
-                    $("#genre").append(`<tr><td>${data["genre"]}</td></tr>`);
-                    $("#director").append(`<tr><td>${data["director"]}\t<button onClick="Edit()">Edit</button>\t<button onClick="Delete()">Delete</button></td></tr>`);
+                $("#movieTable").append(`<tr><td>${data[i]["title"]}</td><td>${data[i]["genre"]}</td><td>${data[i]["director"]}</td><td><button  onClick="Edit('${data[i]["movieId"]}', '${data[i]["title"]}', '${data[i]["genre"]}', '${data[i]["director"]}')">Edit</button></td></tr>`);
             },
             error: function( jqXhr, textStatus, errorThrown ){
                 console.log( errorThrown );
