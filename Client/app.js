@@ -18,7 +18,7 @@
 				$('#director').append(
 					`<tr><td>${data[
 						'director'
-					]}\t<button onClick="Edit()">Edit</button>\t<button onClick="Delete()">Delete</button></td></tr>`
+					]}\t<button onClick="Edit()">Edit</button>\t<button onClick="deleteMovie()">Delete</button></td></tr>`
 				);
 			},
 			error: function(jqXhr, textStatus, errorThrown) {
@@ -37,6 +37,7 @@ $(function() {
 function LoadMovies() {
 	let data = {};
 	$.get('https://localhost:44325/api/movie', function(data) {
+		$('#movieTable').append(`<tr><th>Title</th><th>Genre</th><th>Director</th><th>Edit</th></tr>`);
 		for (let i = 0; i < data.length; i++) {
 			$('#movieTable').append(
 				`<tr><td>${data[i]['title']}</td><td>${data[i]['genre']}</td><td>${data[i][
@@ -68,10 +69,27 @@ function Edit(id, title, genre, director) {
 		contentType: 'application/json',
 		data: JSON.stringify(dict),
 		success: function(data, textStatus, jQxhr) {
-			document.body.innerHTML = '';
+			document.getElementById('movieTable').innerHTML = '';
 			LoadMovies();
 		},
 		error: function(jqXhr, textStatus, errorThrown) {
+			console.log(errorThrown);
+		}
+	});
+}
+//Delete
+function deleteMovie(id) {
+	$.ajax({
+		url: 'https://localhost:44325/api/movie?',
+		dataType: 'text',
+		type: 'delete',
+		contentType: 'application/json',
+		data: JSON.stringify(id),
+		success: function(data) {
+			alert('Movie deleted from Library');
+			LoadMovies();
+		},
+		error: function(errorThrown) {
 			console.log(errorThrown);
 		}
 	});
