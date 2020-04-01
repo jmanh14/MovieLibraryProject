@@ -66,4 +66,8 @@ function LoadMovies(){
                 }
             });
             
+<<<<<<< HEAD
     }
+=======
+    }
+>>>>>>> 03101d4c4da3b2230a8308b2f0db62a6dfcd4976
