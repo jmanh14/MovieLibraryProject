@@ -8,7 +8,7 @@ $(function() {
 			Title: this['title'].value,
 			Director: this['director'].value,
 			Genre: this['genre'].value,
-			ImageURL: this['url'].value
+			Url: this['url'].value
 		};
 
 		$.ajax({
@@ -19,15 +19,15 @@ $(function() {
 			data: JSON.stringify(dict),
 			success: function(data, textStatus, jQxhr) {
 				$('#movieTable').append(
-					`<tr><td>${data[i]['title']}/td><td>${data[i]['genre']}</td><td>${data[i][
+					`<tr><td>${data['title']}</td><td>${data['genre']}</td><td>${data[
 						'director'
-					]}</td><td><button  onClick="GetImage('${data[i][
+					]}</td><td><button  onClick="GetImage('${data[
 						'url'
-					]}')">Image</button></td><td><button  onClick="Edit('${data[i]['movieId']}', '${data[i][
+					]}')">Image</button></td><td><button  onClick="Edit('${data['movieId']}', '${data[
 						'title'
-					]}', '${data[i]['genre']}', '${data[i]['director']}', '${data[i][
+					]}', '${data['genre']}', '${data['director']}', '${data[
 						'url'
-					]}')">Edit</button></td><td><button onClick="deleteMovie('${data[i][
+					]}')">Edit</button></td><td></td><td><button onClick="deleteMovie('${data[
 						'movieId'
 					]}')">Delete</button></td></tr>`
 				);
@@ -45,7 +45,7 @@ $(function() {
 function LoadMovies() {
 	let data = {};
 	$.get('https://localhost:44325/api/movie', function(data) {
-		$('#movieTable').append(`<tr><th>Title</th><th>Genre</th><th>Director</th>ImageUrl<th></th><th></th></tr>`);
+		$('#movieTable').append(`<tr><th>Title</th><th>Genre</th><th>Director</th></tr>`);
 		for (let i = 0; i < data.length; i++) {
 			$('#movieTable').append(
 				`<tr><td>${data[i]['title']}</td><td>${data[i]['genre']}</td><td>${data[i][
