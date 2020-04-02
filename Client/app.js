@@ -1,9 +1,4 @@
-images = [
-	'https://upload.wikimedia.org/wikipedia/en/8/8a/Dark_Knight.jpg',
-	'https://upload.wikimedia.org/wikipedia/en/2/2e/Inception_%282010%29_theatrical_poster.jpg',
-	'https://m.media-amazon.com/images/M/MV5BMTY1MTE4NzAwM15BMl5BanBnXkFtZTcwNzg3Mjg2MQ@@._V1_UY1200_CR88,0,630,1200_AL_.jpg',
-	'https://m.media-amazon.com/images/M/MV5BZjRlNDUxZjAtOGQ4OC00OTNlLTgxNmQtYTBmMDgwZmNmNjkxXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg'
-];
+
 $(function() {
 	LoadMovies();
 });
@@ -24,15 +19,18 @@ $(function() {
 			data: JSON.stringify(dict),
 			success: function(data, textStatus, jQxhr) {
 				$('#movieTable').append(
-					`<tr><td>${data['title']}</td><td>${data['genre']}</td><td><td>${data['url']}</td><td>${data[
+					`<tr><td>${data[i]['title']}/td><td>${data[i]['genre']}</td><td>${data[i][
 						'director'
-					]}</td><td><button onClick="Edit('${data['movieId']}', '${data['title']}', '${data[
-						'genre'
-					]}', '${data['director']}')">Edit</button><button onClick="DeleteMovie('${data[
+					]}</td><td><button  onClick="GetImage('${data[i][
+						'url'
+					]}')">Image</button></td><td><button  onClick="Edit('${data[i]['movieId']}', '${data[i][
+						'title'
+					]}', '${data[i]['genre']}', '${data[i]['director']}', '${data[i][
+						'url'
+					]}')">Edit</button></td><td><button onClick="deleteMovie('${data[i][
 						'movieId'
 					]}')">Delete</button></td></tr>`
 				);
-				movies.push(data);
 			},
 			error: function(jqXhr, textStatus, errorThrown) {
 				console.log(errorThrown);
@@ -50,15 +48,14 @@ function LoadMovies() {
 		$('#movieTable').append(`<tr><th>Title</th><th>Genre</th><th>Director</th>ImageUrl<th></th><th></th></tr>`);
 		for (let i = 0; i < data.length; i++) {
 			$('#movieTable').append(
-				`<tr><td><a href=${images[i]}>${data[i]['title']}</a></td><td>${data[i]['genre']}</td><td>${data[i][
+				`<tr><td>${data[i]['title']}</td><td>${data[i]['genre']}</td><td>${data[i][
 					'director'
-				]}</td><td><button  onClick="viewUrl('${data[i]['movieId']}', '${data[i][
-					'url'
-				]}')">Image</button></td><td><button  onClick="Edit('${data[i]['movieId']}', '${data[i][
+				]}</td><td><button  onClick="GetImage('${data[i]['url']}')">Image</button>
+				</td><td><button  onClick="Edit('${data[i]['movieId']}', '${data[i][
 					'title'
 				]}', '${data[i]['genre']}', '${data[i]['director']}', '${data[i][
 					'url'
-				]}')">Edit</button></td><td><button onClick="deleteMovie('${data[i][
+				]}')">Edit</button></td><td></td><td><button onClick="deleteMovie('${data[i][
 					'movieId'
 				]}')">Delete</button></td></tr>`
 			);
@@ -114,7 +111,9 @@ function deleteMovie(id) {
 		}
 	});
 }
-//function viewUrl()
+function GetImage(url){
+	window.open(url, "MoviePoster", "width=500, height=450");
+}
 
 $(document).ready(function() {
 	$('#myInput').on('keyup', function() {
@@ -122,15 +121,5 @@ $(document).ready(function() {
 		$('#movieTable tr').filter(function() {
 			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
 		});
-	});
-});
-$('a').each(function() {
-	$(this).click(function(e) {
-		var imgUrl = $(this).attr('href');
-		alert(imgUrl);
-		// display here the image where you want
-		images[e];
-		e.preventDefault();
-		return false;
 	});
 });
