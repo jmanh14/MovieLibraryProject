@@ -44,7 +44,7 @@ $(function() {
 function LoadMovies() {
 	let data = {};
 	$.get('https://localhost:44325/api/movie', function(data) {
-		$('#movieTable').append(`<tr><th>Title</th><th>Genre</th><th>Director</th>Url<th></th></tr>`);
+		$('#movieTable').append(`<tr><th>Title</th><th>Genre</th><th>Director</th></tr>`);
 		for (let i = 0; i < data.length; i++) {
 			$('#movieTable').append(
 				`<tr><td>${data[i]['title']}</td><td>${data[i]['genre']}</td><td>${data[i][
