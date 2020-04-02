@@ -13,7 +13,7 @@ $(function() {
 			Title: this['title'].value,
 			Director: this['director'].value,
 			Genre: this['genre'].value,
-			ImageURL: this['imageURL'].value
+			ImageURL: this['url'].value
 		};
 
 		$.ajax({
@@ -24,15 +24,15 @@ $(function() {
 			data: JSON.stringify(dict),
 			success: function(data, textStatus, jQxhr) {
 				$('#movieTable').append(
-					`<tr><td ><a href=${dict.ImageURL}>${data['title']}</a></td><td>${data['genre']}</td><td>${data[
+					`<tr><td>${data['title']}</td><td>${data['genre']}</td><td><td>${data['url']}</td><td>${data[
 						'director'
 					]}</td><td><button onClick="Edit('${data['movieId']}', '${data['title']}', '${data[
 						'genre'
-					]}', '${data['director']}')">Edit</button></td><td><button onClick="deleteMovie('${data[
+					]}', '${data['director']}')">Edit</button><button onClick="DeleteMovie('${data[
 						'movieId'
 					]}')">Delete</button></td></tr>`
 				);
-				images.push(dict.ImageURL);
+				movies.push(data);
 			},
 			error: function(jqXhr, textStatus, errorThrown) {
 				console.log(errorThrown);
@@ -47,14 +47,18 @@ $(function() {
 function LoadMovies() {
 	let data = {};
 	$.get('https://localhost:44325/api/movie', function(data) {
-		$('#movieTable').append(`<tr><th>Title</th><th>Genre</th><th>Director</th><th></th><th></th></tr>`);
+		$('#movieTable').append(`<tr><th>Title</th><th>Genre</th><th>Director</th>ImageUrl<th></th><th></th></tr>`);
 		for (let i = 0; i < data.length; i++) {
 			$('#movieTable').append(
 				`<tr><td><a href=${images[i]}>${data[i]['title']}</a></td><td>${data[i]['genre']}</td><td>${data[i][
 					'director'
-				]}</td><td><button  onClick="Edit('${data[i]['movieId']}', '${data[i]['title']}', '${data[i][
-					'genre'
-				]}', '${data[i]['director']}')">Edit</button></td><td><button onClick="deleteMovie('${data[i][
+				]}</td><td><button  onClick="viewUrl('${data[i]['movieId']}', '${data[i][
+					'url'
+				]}')">Image</button></td><td><button  onClick="Edit('${data[i]['movieId']}', '${data[i][
+					'title'
+				]}', '${data[i]['genre']}', '${data[i]['director']}', '${data[i][
+					'url'
+				]}')">Edit</button></td><td><button onClick="deleteMovie('${data[i][
 					'movieId'
 				]}')">Delete</button></td></tr>`
 			);
@@ -62,18 +66,20 @@ function LoadMovies() {
 	});
 }
 
-function Edit(id, title, genre, director) {
+function Edit(id, title, genre, director, url) {
 	console.log('Edit');
 	id = parseInt(id);
 	var dict = {
 		MovieId: id,
 		Title: title,
 		Genre: genre,
-		Director: director
+		Director: director,
+		Url: url
 	};
 	dict.Title = prompt('Enter in the new title:');
 	dict.Genre = prompt('Enter in the new genre:');
 	dict.Director = prompt('Enter in the new director:');
+	dict.Url = prompt('Enter in the url image:');
 	$.ajax({
 		url: 'https://localhost:44325/api/movie',
 		dataType: 'text',
@@ -108,6 +114,7 @@ function deleteMovie(id) {
 		}
 	});
 }
+//function viewUrl()
 
 $(document).ready(function() {
 	$('#myInput').on('keyup', function() {
